@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book an Appointment | Site Crew Scheduler</title>
+  <meta name="description" content="Schedule a worker appointment in a few taps." />
+
+  <!-- Google Fonts: a sturdy grotesque for UI + a monospace for the time/slot elements (nods to work orders & timesheets) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Decorative background grid, mimics a job-ticket / clipboard ledger -->
+  <div class="bg-ledger" aria-hidden="true"></div>
+
+  <div class="page">
+
+    <!-- ===================== HERO ===================== -->
+    <header class="hero">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        Slots open today, 9:00 AM – 6:00 PM
+      </div>
+      <h1 class="hero-title">
+        Get a worker<br />
+        <span class="hero-title-accent">on the clock.</span>
+      </h1>
+      <p class="hero-sub">
+        Tell us who you need, when you need them, and where — we'll lock the slot in and log it straight to our schedule.
+      </p>
+    </header>
+
+    <!-- ===================== FORM CARD ===================== -->
+    <main class="card" id="bookingCard">
+
+      <form id="bookingForm" novalidate>
+
+        <!-- ---- Requester details ---- -->
+        <fieldset class="fieldset">
+          <legend>Your details</legend>
+
+          <div class="field">
+            <label for="fullName">Full name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName" placeholder="e.g. Amara Osei" autocomplete="name" required />
+            <span class="error-msg" data-error-for="fullName"></span>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. +1 555 123 4567" autocomplete="tel" required />
+            <span class="error-msg" data-error-for="phone"></span>
+          </div>
+
+          <div class="field">
+            <label for="address">Address <span class="req">*</span></label>
+            <textarea id="address" name="address" rows="2" placeholder="Street, city, ZIP" required></textarea>
+            <span class="error-msg" data-error-for="address"></span>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="workerLevel">Level of worker</label>
+              <select id="workerLevel" name="workerLevel">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Manager">Manager</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ---- Appointment slot ---- -->
+        <fieldset class="fieldset">
+          <legend>Appointment slot</legend>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="appointmentDate">Date <span class="req">*</span></label>
+              <input type="date" id="appointmentDate" name="appointmentDate" required />
+              <span class="error-msg" data-error-for="appointmentDate"></span>
+            </div>
+
+            <div class="field">
+              <label for="appointmentTime">Time <span class="req">*</span></label>
+              <select id="appointmentTime" name="appointmentTime" required>
+                <option value="" disabled selected>Select date first</option>
+              </select>
+              <span class="error-msg" data-error-for="appointmentTime"></span>
+            </div>
+          </div>
+
+          <p class="hours-hint" id="hoursHint">Working hours: 9:00 AM – 6:00 PM · 30-min slots</p>
+        </fieldset>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-label">Confirm appointment</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+
+        <p class="form-footnote">A timestamp is recorded automatically — no need to enter it.</p>
+      </form>
+
+      <!-- ---- Success state (swapped in after a good submit) ---- -->
+      <div class="success-state" id="successState" hidden>
+        <div class="success-check">
+          <svg viewBox="0 0 52 52" width="52" height="52">
+            <circle class="success-check-circle" cx="26" cy="26" r="24" fill="none" />
+            <path class="success-check-mark" fill="none" d="M14 27l7 7 17-17" />
+          </svg>
+        </div>
+        <h2>Appointment booked</h2>
+        <p id="successDetails">You're on the schedule. A copy of this booking was saved to our records.</p>
+        <button type="button" class="ghost-btn" id="bookAnotherBtn">Book another slot</button>
+      </div>
+
+    </main>
+
+    <footer class="page-footer">
+      <span>Slots refresh live from working hours &amp; existing bookings.</span>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
